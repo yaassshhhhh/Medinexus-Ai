@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 
-const Doctor = () => {
+const Doctors = () => {
  
     const { speciality } = useParams()
     const [filterDoc, setFilterDoc] = useState([])
@@ -64,4 +64,4 @@ const Doctor = () => {
   )
 }
 
-export default Doctor
+export default Doctors
