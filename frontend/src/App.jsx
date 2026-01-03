@@ -10,11 +10,15 @@ import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Chatbot from './components/Chatbot'
+import VideoConsult from './pages/VideoConsult'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/doctors' element={<Doctors />} />
@@ -22,11 +26,14 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/my-profile' element={<MyProfile/>} />
+        <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/my-appointment' element={<MyAppointment />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
+        <Route path='/video-consult' element={<VideoConsult />} />
       </Routes>
-      <Footer/>
+      <Footer />
+      <Chatbot />
+      <ToastContainer />
     </div>
   )
 }

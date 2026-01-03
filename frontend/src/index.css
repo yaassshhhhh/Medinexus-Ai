@@ -1,20 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
-*{
-  font-family:Outfit;
+* {
+  font-family: Outfit;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(to bottom right, #ffffff, #f0f4ff);
+  min-height: 100vh;
 }
 
 @theme {
   --color-primary: #5F6FFF;
 }
 
-::-webkit-scrollbar{
-  @apply hidden
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5F6FFF;
 }
 
 @media (max-width:740px) {
-  .active p{ 
+  .active p {
     @apply text-white bg-primary
   }
 }

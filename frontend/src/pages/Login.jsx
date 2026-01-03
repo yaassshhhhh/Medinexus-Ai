@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
@@ -11,20 +12,25 @@ const Login = () => {
     event.preventDefault();
   };
   return (
-    <form className="min-h-[80vh] flex items-center">
-      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg">
-        <p className="text-2xl font-semibold">
-          {state === "Sign Up" ? "Create Account" : "Login"}
+    <form className="min-h-[80vh] flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+        className="flex flex-col gap-4 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border border-indigo-50 rounded-2xl bg-white text-zinc-600 text-sm shadow-xl"
+      >
+        <p className="text-2xl font-bold text-gray-800">
+          {state === "Sign Up" ? "Create Account" : "Welcome Back"}
         </p>
-        <p>
+        <p className="text-gray-500 mb-2">
           Please {state === "Sign Up" ? "sign up" : "log in"} to book
-          appointment
+          an appointment
         </p>
         {state === "Sign Up" && (
           <div className="w-full">
-            <p>Full Name</p>
+            <p className="font-medium text-gray-700 mb-1">Full Name</p>
             <input
-              className="border border-zinc-300 rounded w-full p-2 mt-1"
+              className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               type="text"
               onChange={(e) => setName(e.target.name)}
               value={name}
@@ -34,9 +40,9 @@ const Login = () => {
         )}
 
         <div className="w-full">
-          <p>Email</p>
+          <p className="font-medium text-gray-700 mb-1">Email</p>
           <input
-            className="border border-zinc-300 rounded w-full p-2 mt-1"
+            className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
             type="Email"
             onChange={(e) => setEmail(e.target.name)}
             value={email}
@@ -44,40 +50,46 @@ const Login = () => {
           />
         </div>
         <div className="w-full">
-          <p>Password</p>
+          <p className="font-medium text-gray-700 mb-1">Password</p>
           <input
-            className="border border-zinc-300 rounded w-full p-2 mt-1"
+            className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
             type="Password"
             onChange={(e) => setPassword(e.target.name)}
             value={password}
             required
           />
         </div>
-        <button className="bg-primary text-white w-full py-2 rounded-md text-base cursor-pointer">
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="bg-primary text-white w-full py-2.5 rounded-lg text-base font-semibold shadow-md mt-2"
+        >
           {state === "Sign Up" ? "Create Account" : "Login"}
-        </button>
+        </motion.button>
+
         {state === "Sign Up" ? (
-          <p>
+          <p className="text-center w-full mt-2">
             Already have an account?{" "}
             <span
               onClick={() => setState("Login")}
-              className="text-primary underline cursor-pointer"
+              className="text-primary font-bold underline cursor-pointer hover:text-indigo-700"
             >
               Login here
             </span>
           </p>
         ) : (
-          <p>
+          <p className="text-center w-full mt-2">
             Create an new account?{" "}
             <span
               onClick={() => setState("Sign Up")}
-              className="text-primary underline cursor-pointer"
+              className="text-primary font-bold underline cursor-pointer hover:text-indigo-700"
             >
               Click here
             </span>
           </p>
         )}
-      </div>
+      </motion.div>
     </form>
   );
 };
