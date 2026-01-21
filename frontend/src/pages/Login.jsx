@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
@@ -8,11 +11,32 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+  const { backendUrl } = useContext(AppContext)
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
+    try {
+
+      if (state === 'Sign Up') {
+        const { data } = await axios.post(backendUrl + '/api/user/register', { name, password, email })
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          toast.success("Account created successfully")
+        } else {
+          toast.error(data.message)
+        }
+      } else {
+        // Login logic can be added here later if needed
+      }
+
+    } catch (error) {
+      toast.error(error.message)
+    }
+
   };
   return (
-    <form className="min-h-[80vh] flex items-center justify-center p-4">
+    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -32,7 +56,7 @@ const Login = () => {
             <input
               className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               type="text"
-              onChange={(e) => setName(e.target.name)}
+              onChange={(e) => setName(e.target.value)}
               value={name}
               required
             />
@@ -43,8 +67,8 @@ const Login = () => {
           <p className="font-medium text-gray-700 mb-1">Email</p>
           <input
             className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-            type="Email"
-            onChange={(e) => setEmail(e.target.name)}
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
           />
@@ -53,8 +77,8 @@ const Login = () => {
           <p className="font-medium text-gray-700 mb-1">Password</p>
           <input
             className="border border-zinc-300 rounded-lg w-full p-2.5 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-            type="Password"
-            onChange={(e) => setPassword(e.target.name)}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
             required
           />
@@ -63,6 +87,7 @@ const Login = () => {
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          type="submit"
           className="bg-primary text-white w-full py-2.5 rounded-lg text-base font-semibold shadow-md mt-2"
         >
           {state === "Sign Up" ? "Create Account" : "Login"}
