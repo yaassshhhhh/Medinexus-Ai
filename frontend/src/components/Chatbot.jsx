@@ -31,7 +31,8 @@ const Chatbot = () => {
         setLoading(true);
 
         try {
-            const { data } = await axios.post('http://localhost:4000/api/chatbot/analyze', { symptoms: userMessage.content });
+            const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000'
+            const { data } = await axios.post(`${backendUrl}/api/chatbot/analyze`, { symptoms: userMessage.content });
 
             if (data.success) {
                 setMessages(prev => [...prev, { role: 'bot', content: data.analysis }]);
@@ -94,8 +95,8 @@ const Chatbot = () => {
                                             {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
                                         </div>
                                         <div className={`p-3.5 rounded-2xl text-sm leading-relaxed shadow-md ${msg.role === 'user'
-                                                ? 'bg-indigo-600 text-white rounded-tr-none'
-                                                : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'
+                                            ? 'bg-indigo-600 text-white rounded-tr-none'
+                                            : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'
                                             }`}>
                                             {msg.role === 'bot' ? (
                                                 <div className="markdown-body prose prose-sm prose-indigo max-w-none">

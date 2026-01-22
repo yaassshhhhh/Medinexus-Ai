@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/home'
-import Doctors from './pages/doctors'
+import Home from './pages/Home'
+import Doctors from './pages/Doctors'
 import Login from './pages/Login'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -12,6 +12,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Chatbot from './components/Chatbot'
 import VideoConsult from './pages/VideoConsult'
+import DoctorConsultDetails from './pages/DoctorConsultDetails'
+import VideoCallRoom from './pages/VideoCallRoom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,6 +32,8 @@ const App = () => {
         <Route path='/my-appointment' element={<MyAppointment />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
         <Route path='/video-consult' element={<VideoConsult />} />
+        <Route path='/doctor-consult/:docId' element={<DoctorConsultDetails />} />
+        <Route path='/video-call/:roomId' element={<VideoCallRoom />} />
       </Routes>
       <Footer />
       <Chatbot />

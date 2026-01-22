@@ -67,7 +67,7 @@ const bookVideoConsult = async (req, res) => {
             userId,
             docId,
             userData,
-            docData: { ...docData.toObject(), slots_booked: undefined }, // safely exclude slots from stored doc data
+            docData: { ...(docData.toObject ? docData.toObject() : docData), slots_booked: undefined }, // safely exclude slots from stored doc data
             docName,
             docImage,
             docSpeciality,
